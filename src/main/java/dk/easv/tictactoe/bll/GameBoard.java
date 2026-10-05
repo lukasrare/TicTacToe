@@ -13,6 +13,7 @@ public class GameBoard implements IGameBoard
 {
     private int nextPlayer = 0;
     private int lastPlayer = 0;
+    private boolean gameWon = false;
     private List<Integer> board = new ArrayList<>(Collections.nCopies(9, 0));
     /**
      * Returns 0 for player 0, 1 for player 1.
@@ -37,7 +38,7 @@ public class GameBoard implements IGameBoard
     public boolean play(int col, int row)
     {
         int value = board.get(row * 3 + col);
-        if(value == 0)
+        if(value == 0 && !gameWon)
         {
             board.set(row*3+col, nextPlayer+1);
             lastPlayer = nextPlayer;
@@ -61,6 +62,21 @@ public class GameBoard implements IGameBoard
      */
     public boolean isGameOver()
     {
+        int availableSpaces = 0;
+        for(int i = 0; i<9; i++)
+        {
+            int value = board.get(i);
+            if(value == 0)
+            {
+                availableSpaces++;
+            }
+        }
+        if(availableSpaces == 0)
+        {
+            lastPlayer = -2;
+            return true;
+        }
+
         for(int i = 0; i<3; i++)
         {
             int a = board.get(i*3);
@@ -96,7 +112,7 @@ public class GameBoard implements IGameBoard
      */
     public int getWinner()
     {
-        //TODO Implement this method
+        gameWon = true;
         return lastPlayer+1;
     }
 
@@ -109,6 +125,7 @@ public class GameBoard implements IGameBoard
         {
             board.set(i, 0);
         }
+        gameWon = false;
         // when a new game is started it sets the starting player to 0 because X always starts.
         nextPlayer = 0;
         //TODO Implement this method
