@@ -57,20 +57,23 @@ public class GameBoard implements IGameBoard
      *
      * @return true if the game is over, else it will return false.
      */
-    public boolean isGameOver()
-    {
-        for(int i = 0; i<3; i++)
-        {
-            int a = board.get(i*3);
-            int b = board.get(i*3+1);
-            int c = board.get(i*3+2);
+    public boolean isGameOver() {
+        int availableSpaces = 0;
+        for (int i = 0; i < 3; i++) {
+            int a = board.get(i * 3);
+            int b = board.get(i * 3 + 1);
+            int c = board.get(i * 3 + 2);
 
             int d = board.get(i);
-            int e = board.get(i+3);
-            int f = board.get(i+6);
+            int e = board.get(i + 3);
+            int f = board.get(i + 6);
 
-            if(a != 0 && a == b && a == c) {return true;}
-            if(d != 0 && d == e && d == f) {return true;}
+            if (a != 0 && a == b && a == c) {
+                return true;
+            }
+            if (d != 0 && d == e && d == f) {
+                return true;
+            }
         }
         int d00 = board.get(0);
         int d02 = board.get(2);
@@ -78,28 +81,23 @@ public class GameBoard implements IGameBoard
         int d20 = board.get(6);
         int d22 = board.get(8);
 
-        if(d00 != 0 && d00 == d11 && d00 == d22)
-        {
+        if (d00 != 0 && d00 == d11 && d00 == d22) {
+            return true;
+        } else if (d02 != 0 && d02 == d11 && d02 == d20) {
             return true;
         }
-        else if (d02 != 0 && d02 == d11 && d02 == d20)
-        {
-            return true;
-        }
-        int availableSpaces = 0;
-        for(int i = 0; i<9; i++)
-        {
+
+        for (int i = 0; i < 9; i++) {
             int value = board.get(i);
-            if(value == 0)
-            {
+            if (value == 0) {
                 availableSpaces++;
             }
         }
-        if(availableSpaces == 0)
-        {
+        if (availableSpaces == 0) {
             lastPlayer = -2;
             return true;
         }
+        return false;
     }
 
     /**
