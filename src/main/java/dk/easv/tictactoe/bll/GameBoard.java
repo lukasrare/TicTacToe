@@ -59,21 +59,6 @@ public class GameBoard implements IGameBoard
      */
     public boolean isGameOver()
     {
-        int availableSpaces = 0;
-        for(int i = 0; i<9; i++)
-        {
-            int value = board.get(i);
-            if(value == 0)
-            {
-                availableSpaces++;
-            }
-        }
-        if(availableSpaces == 0)
-        {
-            lastPlayer = -2;
-            return true;
-        }
-
         for(int i = 0; i<3; i++)
         {
             int a = board.get(i*3);
@@ -97,7 +82,24 @@ public class GameBoard implements IGameBoard
         {
             return true;
         }
-        else return d02 != 0 && d02 == d11 && d02 == d20;
+        else if (d02 != 0 && d02 == d11 && d02 == d20)
+        {
+            return true;
+        }
+        int availableSpaces = 0;
+        for(int i = 0; i<9; i++)
+        {
+            int value = board.get(i);
+            if(value == 0)
+            {
+                availableSpaces++;
+            }
+        }
+        if(availableSpaces == 0)
+        {
+            lastPlayer = -2;
+            return true;
+        }
     }
 
     /**
