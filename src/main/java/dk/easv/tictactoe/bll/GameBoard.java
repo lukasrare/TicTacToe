@@ -1,6 +1,10 @@
 
 package dk.easv.tictactoe.bll;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /**
  *
  * @author EASV
@@ -8,6 +12,7 @@ package dk.easv.tictactoe.bll;
 public class GameBoard implements IGameBoard
 {
     private int nextPlayer = 0;
+    private List<Integer> board = new ArrayList<>(Collections.nCopies(9, 0));
     /**
      * Returns 0 for player 0, 1 for player 1.
      *
@@ -30,10 +35,20 @@ public class GameBoard implements IGameBoard
      */
     public boolean play(int col, int row)
     {
+        int value = board.get(row * 3 + col);
+        if(value == 0)
+        {
+            board.set(row*3+col, nextPlayer+1);
+            nextPlayer = (nextPlayer == 0) ? 1 : 0;
+            System.out.println(board);
+            return true;
+        }
+        else {
+            return false;
+        }
+
         //TODO Implement this method
         // (condition) ? valueIfTrue : valueIfFalse
-        nextPlayer = (nextPlayer == 0) ? 1 : 0;
-        return true;
     }
 
     /**
