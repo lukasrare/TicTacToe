@@ -96,25 +96,11 @@ public class TicTacViewController implements Initializable {
         lblPlayer.setText(TXT_PLAYER + (game.getNextPlayer()+1));
     }
 
+
     /**
      * Finds a winner or a draw and displays a message based
      * @param winner
      */
-
-    private void setWinningLine() {
-        ArrayList<Integer> values = game.getWinningLine();
-        System.out.println("Winning line: " + values);
-
-        for(Integer value : values) {
-            for(Node n : gridPane.getChildren()) {
-                Button btn = (Button) n;
-                if(String.valueOf(value + 1).equals(btn.getId().substring(3))) {
-                    btn.setFont(Font.font("System", FontWeight.BOLD, 14));
-                }
-            }
-        }
-    }
-
     private void displayWinner(int winner) {
         String message = "";
         switch (winner)
@@ -128,6 +114,20 @@ public class TicTacViewController implements Initializable {
                 break;
         }
         lblPlayer.setText(message);
+    }
+
+    private void setWinningLine() {
+        ArrayList<Integer> values = game.getWinningLine();
+        System.out.println("Winning line: " + values);
+
+        for(Integer value : values) {
+            for(Node n : gridPane.getChildren()) {
+                Button btn = (Button) n;
+                if(String.valueOf(value + 1).equals(btn.getId().substring(3))) {
+                    btn.setFont(Font.font("System", FontWeight.BOLD, 14));
+                }
+            }
+        }
     }
 
     /**
