@@ -13,6 +13,7 @@ public class GameBoard implements IGameBoard
 {
     private int nextPlayer = 0;
     private int lastPlayer = 0;
+    private boolean gameWon = false;
     private List<Integer> board = new ArrayList<>(Collections.nCopies(9, 0));
     /**
      * Returns 0 for player 0, 1 for player 1.
@@ -26,7 +27,7 @@ public class GameBoard implements IGameBoard
 
     /**
      * Attempts to let the current player play at the given coordinates. It the
-     * attempt is succesfull the current player has ended his turn and it is the
+     * attempt is successful the current player has ended his turn and it is the
      * next players turn.
      *
      * @param col column to place a marker in.
@@ -37,7 +38,7 @@ public class GameBoard implements IGameBoard
     public boolean play(int col, int row)
     {
         int value = board.get(row * 3 + col);
-        if(value == 0)
+        if(value == 0 && !gameWon)
         {
             board.set(row*3+col, nextPlayer+1);
             lastPlayer = nextPlayer;
@@ -48,9 +49,6 @@ public class GameBoard implements IGameBoard
         else {
             return false;
         }
-
-        //TODO Implement this method
-        // (condition) ? valueIfTrue : valueIfFalse
     }
 
     /**
@@ -59,20 +57,23 @@ public class GameBoard implements IGameBoard
      *
      * @return true if the game is over, else it will return false.
      */
-    public boolean isGameOver()
-    {
-        for(int i = 0; i<3; i++)
-        {
-            int a = board.get(i*3);
-            int b = board.get(i*3+1);
-            int c = board.get(i*3+2);
+    public boolean isGameOver() {
+        int availableSpaces = 0;
+        for (int i = 0; i < 3; i++) {
+            int a = board.get(i * 3);
+            int b = board.get(i * 3 + 1);
+            int c = board.get(i * 3 + 2);
 
             int d = board.get(i);
-            int e = board.get(i+3);
-            int f = board.get(i+6);
+            int e = board.get(i + 3);
+            int f = board.get(i + 6);
 
-            if(a != 0 && a == b && a == c) {return true;}
-            if(d != 0 && d == e && d == f) {return true;}
+            if (a != 0 && a == b && a == c) {
+                return true;
+            }
+            if (d != 0 && d == e && d == f) {
+                return true;
+            }
         }
         int d00 = board.get(0);
         int d02 = board.get(2);
@@ -80,13 +81,23 @@ public class GameBoard implements IGameBoard
         int d20 = board.get(6);
         int d22 = board.get(8);
 
-        if(d00 != 0 && d00 == d11 && d00 == d22)
-        {
+        if (d00 != 0 && d00 == d11 && d00 == d22) {
+            return true;
+        } else if (d02 != 0 && d02 == d11 && d02 == d20) {
             return true;
         }
-        else return d02 != 0 && d02 == d11 && d02 == d20;
 
-        //TODO Implement this method
+        for (int i = 0; i < 9; i++) {
+            int value = board.get(i);
+            if (value == 0) {
+                availableSpaces++;
+            }
+        }
+        if (availableSpaces == 0) {
+            lastPlayer = -2;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -96,7 +107,7 @@ public class GameBoard implements IGameBoard
      */
     public int getWinner()
     {
-        //TODO Implement this method
+        gameWon = true;
         return lastPlayer+1;
     }
 
@@ -109,8 +120,8 @@ public class GameBoard implements IGameBoard
         {
             board.set(i, 0);
         }
+        gameWon = false;
         // when a new game is started it sets the starting player to 0 because X always starts.
         nextPlayer = 0;
-        //TODO Implement this method
     }
 }
