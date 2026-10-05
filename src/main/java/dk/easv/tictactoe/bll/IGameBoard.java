@@ -17,7 +17,7 @@ public interface IGameBoard
 
     /**
      * Attempts to let the current player play at the given coordinates. If the
-     * attempt is succesfull the current player has ended his turn and it is the
+     * attempt is successful the current player has ended his turn and it is the
      * next players turn.
      *
      * @param col column to place a marker in.

@@ -1,6 +1,8 @@
 
 package dk.easv.tictactoe.bll;
 
+import javafx.scene.control.Button;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -99,6 +101,7 @@ public class GameBoard implements IGameBoard
         }
         return false;
     }
+
 
     /**
      * Gets the id of the winner, -1 if its a draw.
