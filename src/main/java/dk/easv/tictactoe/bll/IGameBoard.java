@@ -1,4 +1,3 @@
-
 package dk.easv.tictactoe.bll;
 
 /**
@@ -7,7 +6,6 @@ package dk.easv.tictactoe.bll;
  */
 public interface IGameBoard
 {
-
     /**
      * Returns 0 for player 0, 1 for player 1.
      *
