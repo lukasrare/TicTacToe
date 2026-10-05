@@ -79,6 +79,10 @@ public class GameBoard implements IGameBoard
      */
     public void newGame()
     {
+        for(int i=0; i<9; i++)
+        {
+            board.set(i, 0);
+        }
         // when a new game is started it sets the starting player to 0 because X always starts.
         nextPlayer = 0;
         //TODO Implement this method
