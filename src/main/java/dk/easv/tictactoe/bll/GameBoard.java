@@ -27,7 +27,7 @@ public class GameBoard implements IGameBoard
 
     /**
      * Attempts to let the current player play at the given coordinates. It the
-     * attempt is succesfull the current player has ended his turn and it is the
+     * attempt is successful the current player has ended his turn and it is the
      * next players turn.
      *
      * @param col column to place a marker in.
@@ -49,9 +49,6 @@ public class GameBoard implements IGameBoard
         else {
             return false;
         }
-
-        //TODO Implement this method
-        // (condition) ? valueIfTrue : valueIfFalse
     }
 
     /**
@@ -101,8 +98,6 @@ public class GameBoard implements IGameBoard
             return true;
         }
         else return d02 != 0 && d02 == d11 && d02 == d20;
-
-        //TODO Implement this method
     }
 
     /**
@@ -128,6 +123,5 @@ public class GameBoard implements IGameBoard
         gameWon = false;
         // when a new game is started it sets the starting player to 0 because X always starts.
         nextPlayer = 0;
-        //TODO Implement this method
     }
 }
