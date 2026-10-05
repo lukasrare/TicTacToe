@@ -12,6 +12,7 @@ import java.util.List;
 public class GameBoard implements IGameBoard
 {
     private int nextPlayer = 0;
+    private int lastPlayer = 0;
     private List<Integer> board = new ArrayList<>(Collections.nCopies(9, 0));
     /**
      * Returns 0 for player 0, 1 for player 1.
@@ -39,6 +40,7 @@ public class GameBoard implements IGameBoard
         if(value == 0)
         {
             board.set(row*3+col, nextPlayer+1);
+            lastPlayer = nextPlayer;
             nextPlayer = (nextPlayer == 0) ? 1 : 0;
             System.out.println(board);
             return true;
@@ -59,9 +61,33 @@ public class GameBoard implements IGameBoard
      */
     public boolean isGameOver()
     {
-        return false;
-    }
+        for(int i = 0; i<3; i++)
+        {
+            int a = board.get(i*3);
+            int b = board.get(i*3+1);
+            int c = board.get(i*3+2);
 
+            int d = board.get(i);
+            int e = board.get(i+3);
+            int f = board.get(i+6);
+
+            if(a != 0 && a == b && a == c) {return true;}
+            if(d != 0 && d == e && d == f) {return true;}
+        }
+        int d00 = board.get(0);
+        int d02 = board.get(2);
+        int d11 = board.get(4);
+        int d20 = board.get(6);
+        int d22 = board.get(8);
+
+        if(d00 != 0 && d00 == d11 && d00 == d22)
+        {
+            return true;
+        }
+        else return d02 != 0 && d02 == d11 && d02 == d20;
+
+        //TODO Implement this method
+    }
 
     /**
      * Gets the id of the winner, -1 if its a draw.
@@ -71,7 +97,7 @@ public class GameBoard implements IGameBoard
     public int getWinner()
     {
         //TODO Implement this method
-        return -1;
+        return lastPlayer+1;
     }
 
     /**
@@ -79,6 +105,10 @@ public class GameBoard implements IGameBoard
      */
     public void newGame()
     {
+        for(int i=0; i<9; i++)
+        {
+            board.set(i, 0);
+        }
         // when a new game is started it sets the starting player to 0 because X always starts.
         nextPlayer = 0;
         //TODO Implement this method
