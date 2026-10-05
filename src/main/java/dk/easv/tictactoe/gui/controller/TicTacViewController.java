@@ -1,6 +1,7 @@
 package dk.easv.tictactoe.gui.controller;
 // Java imports
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,8 @@ import javafx.scene.layout.GridPane;
 // Project imports
 import dk.easv.tictactoe.bll.GameBoard;
 import dk.easv.tictactoe.bll.IGameBoard;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 /**
  *
@@ -97,6 +100,21 @@ public class TicTacViewController implements Initializable {
      * Finds a winner or a draw and displays a message based
      * @param winner
      */
+
+    private void setWinningLine() {
+        ArrayList<Integer> values = game.getWinningLine();
+        System.out.println("Winning line: " + values);
+
+        for(Integer value : values) {
+            for(Node n : gridPane.getChildren()) {
+                Button btn = (Button) n;
+                if(String.valueOf(value + 1).equals(btn.getId().substring(3))) {
+                    btn.setFont(Font.font("System", FontWeight.BOLD, 14));
+                }
+            }
+        }
+    }
+
     private void displayWinner(int winner) {
         String message = "";
         switch (winner)
@@ -105,6 +123,7 @@ public class TicTacViewController implements Initializable {
                 message = "It's a draw :-(";
                 break;
             default:
+                setWinningLine();
                 message = "Player " + (winner+1) + " wins!!!";
                 break;
         }
@@ -112,13 +131,14 @@ public class TicTacViewController implements Initializable {
     }
 
     /**
-     * Clears the game board in the GUI
+     * Clears the game board in the GUI and resets the font for all the buttons.
      */
     private void clearBoard() {
         for(Node n : gridPane.getChildren())
         {
             Button btn = (Button) n;
             btn.setText("");
+            btn.setFont(Font.font("System", FontWeight.NORMAL, 12));
         }
     }
 }

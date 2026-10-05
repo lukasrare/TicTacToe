@@ -1,5 +1,7 @@
 package dk.easv.tictactoe.bll;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author EASV
@@ -32,6 +34,8 @@ public interface IGameBoard
      * @return true if the game is over, else it will return false.
      */
     boolean isGameOver();
+
+    ArrayList<Integer> getWinningLine ();
 
     /**
      * Gets the id of the winner, -1 if its a draw or if the game is still running.

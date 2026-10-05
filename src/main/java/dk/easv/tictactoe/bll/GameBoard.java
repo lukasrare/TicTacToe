@@ -1,5 +1,6 @@
 package dk.easv.tictactoe.bll;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class GameBoard implements IGameBoard {
     private int lastPlayer = 0;
     private boolean gameWon = false;
     private List<Integer> board = new ArrayList<>(Collections.nCopies(9, 0));
+    private List<Integer> winningLine = new ArrayList<>(Collections.nCopies(3, 0));
 
     /**
      * Returns 0 for player 0, 1 for player 1.
@@ -61,10 +63,12 @@ public class GameBoard implements IGameBoard {
             int f = board.get(i + 6);
             // Check rows
             if (a != 0 && a == b && a == c) {
+                winningLine.set(0, i*3); winningLine.set(1, i*3+1); winningLine.set(2, i*3+2);
                 return true;
             }
             // Check columns
             if (d != 0 && d == e && d == f) {
+                winningLine.set(0, i); winningLine.set(1, i+3); winningLine.set(2, i+6);
                 return true;
             }
         }
@@ -75,8 +79,10 @@ public class GameBoard implements IGameBoard {
         int d22 = board.get(8);
         // Check diagonals
         if (d00 != 0 && d00 == d11 && d00 == d22) {
+            winningLine.set(0, 0); winningLine.set(1, 4); winningLine.set(2, 8);
             return true;
         } else if (d02 != 0 && d02 == d11 && d02 == d20) {
+            winningLine.set(0, 2); winningLine.set(1, 4); winningLine.set(2, 6);
             return true;
         }
         // check if draw
@@ -88,6 +94,10 @@ public class GameBoard implements IGameBoard {
         }
         lastPlayer = -1; // It's a draw
         return true;
+    }
+
+    public ArrayList<Integer> getWinningLine () {
+        return (ArrayList<Integer>) winningLine;
     }
 
     /**
@@ -110,7 +120,6 @@ public class GameBoard implements IGameBoard {
             board.set(i, 0);
         }
         gameWon = false;
-        // when a new game is started it sets the starting player to 0 because X always starts.
         nextPlayer = 0;
     }
 }
