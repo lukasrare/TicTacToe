@@ -43,7 +43,7 @@ public class AIGameBoard implements IGameBoard{
                 if(board.contains(0)) {
                     canContinue = true;
                 }
-            if(canContinue) {
+            if(canContinue && !isGameOver()) {
                 boolean tookTurn = false;
                 while (!tookTurn) {
                     int randomNum = (int) (Math.random() * 9);
