@@ -6,25 +6,35 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane focusTraversable="true" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.tictactoe.gui.controller.IntroController">
+<AnchorPane focusTraversable="true" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;" styleClass="col" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.tictactoe.gui.controller.IntroController">
    <children>
-      <Button fx:id="btnSingle" layoutX="110.0" layoutY="200.0" mnemonicParsing="false" onAction="#startSingleplayer" text="Singeplayer">
+      <Button fx:id="btnSingle" layoutX="53.0" layoutY="172.0" mnemonicParsing="false" onAction="#fxmlLoad" text="Singleplayer" textFill="#686aff">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnMulti" layoutX="383.0" layoutY="200.0" mnemonicParsing="false" onAction="#startMultiplayer" text="Multiplayer">
+      <Button fx:id="btnMulti" layoutX="53.0" layoutY="252.0" mnemonicParsing="false" onAction="#fxmlLoad" prefHeight="35.0" prefWidth="117.0" text="Multiplayer" textFill="RED">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="110.0" layoutY="84.0" text="Welcome To TicTacToe" textAlignment="CENTER">
+      <Label alignment="CENTER" layoutX="110.0" layoutY="84.0" text="Welcome To TicTacToe" textAlignment="CENTER" textFill="#946666">
          <font>
-            <Font size="36.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
          <padding>
             <Insets left="10.0" right="10.0" />
          </padding>
+      </Label>
+      <Label layoutX="222.0" layoutY="181.0" text="Test your skill against the most highly developed AI" textFill="#946666">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="222.0" layoutY="259.0" text="Have a intens 1v1 against your friends to see whos best" textFill="#946666">
+         <font>
+            <Font size="16.0" />
+         </font>
       </Label>
    </children>
 </AnchorPane>
