@@ -1,5 +1,4 @@
 package dk.easv.tictactoe.bll;
-
 import java.util.ArrayList;
 
 /**
