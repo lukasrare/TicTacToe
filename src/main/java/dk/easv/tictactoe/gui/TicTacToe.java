@@ -28,7 +28,7 @@ public class TicTacToe extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        FXMLLoader fxmlLoader = new FXMLLoader(TicTacToe.class.getResource("/views/TicTacView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(TicTacToe.class.getResource("/views/Menu.fxml"));
         Parent scene = fxmlLoader.load();
         stage.setScene(new Scene(scene));
         stage.setResizable(false);
@@ -38,15 +38,13 @@ public class TicTacToe extends Application
         primaryStage = stage;
     }
 
-    public Stage returnPrimaryStage()
-    {
-        return primaryStage;
-    }
 
-    public static void changeScene(Stage stage, String fxmlFile) throws IOException {
+
+    public static void changeScene(String fxmlFile) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TicTacToe.class.getResource(fxmlFile));
         Parent scene = fxmlLoader.load();
         IntroController controller = fxmlLoader.getController();
+        Stage stage = primaryStage;
         stage.setTitle("Tic Tac Toe");
         stage.setScene(new Scene(scene));
         stage.show();
