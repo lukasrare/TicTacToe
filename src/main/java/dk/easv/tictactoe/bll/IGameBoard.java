@@ -1,5 +1,6 @@
-
 package dk.easv.tictactoe.bll;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -7,7 +8,6 @@ package dk.easv.tictactoe.bll;
  */
 public interface IGameBoard
 {
-
     /**
      * Returns 0 for player 0, 1 for player 1.
      *
@@ -17,7 +17,7 @@ public interface IGameBoard
 
     /**
      * Attempts to let the current player play at the given coordinates. If the
-     * attempt is succesfull the current player has ended his turn and it is the
+     * attempt is successful the current player has ended his turn and it is the
      * next players turn.
      *
      * @param col column to place a marker in.
@@ -34,6 +34,8 @@ public interface IGameBoard
      * @return true if the game is over, else it will return false.
      */
     boolean isGameOver();
+
+    ArrayList<Integer> getWinningLine ();
 
     /**
      * Gets the id of the winner, -1 if its a draw or if the game is still running.
