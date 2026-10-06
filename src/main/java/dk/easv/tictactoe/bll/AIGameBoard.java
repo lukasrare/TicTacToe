@@ -4,35 +4,142 @@ import java.util.Collections;
 import java.util.List;
 
 public class AIGameBoard implements IGameBoard{
+    private int nextPlayer = 0;
+    private int lastPlayer = 0;
+    private boolean gameWon = false;
+    private int aiPlacement = 0;
+    private List<Integer> board = new ArrayList<>(Collections.nCopies(9, 0));
+    private List<Integer> winningLine = new ArrayList<>(Collections.nCopies(3, 0));
 
-    
-
-    public int getNextPlayer() {
-        return 0;
+    /**
+     * Returns 0 for player 0, 1 for player 1.
+     *
+     * @return int Id of the next player.
+     */
+    public int getNextPlayer()
+    {
+        return nextPlayer;
     }
 
-
+    /**
+     * Attempts to let the current player play at the given coordinates. It the
+     * attempt is successful the current player has ended his turn and it is the
+     * next players turn.
+     *
+     * @param col column to place a marker in.
+     * @param row row to place a marker in.
+     * @return true if the move is accepted, otherwise false. If gameOver == true
+     * this method will always return false.
+     */
     public boolean play(int col, int row) {
-        return false;
+        boolean canContinue = false;
+        int value = board.get(row * 3 + col);
+            if (value == 0 && !gameWon) {
+                board.set(row * 3 + col, nextPlayer + 1);
+                lastPlayer = nextPlayer;
+                nextPlayer = (nextPlayer == 0) ? 1 : 0;
+                System.out.println(board);
+
+                if(board.contains(0)) {
+                    canContinue = true;
+                }
+            if(canContinue) {
+                boolean tookTurn = false;
+                while (!tookTurn) {
+                    int randomNum = (int) (Math.random() * 9);
+                    int value2 = board.get(randomNum);
+                    if (value2 == 0 && !gameWon) {
+                        board.set(randomNum, nextPlayer + 1);
+                        lastPlayer = nextPlayer;
+                        nextPlayer = (nextPlayer == 0) ? 1 : 0;
+                        System.out.println(board);
+                        aiPlacement = randomNum;
+                        tookTurn = true;
+                    }
+                }
+            }
+            return true;
+        }
+            return false;
     }
 
+    public int getAiPlacement() {
+        return aiPlacement;
+    }
 
+    /**
+     * Tells us if the game has ended either by draw or by meeting the winning
+     * condition.
+     *
+     * @return true if the game is over, else it will return false.
+     */
     public boolean isGameOver() {
-        return false;
+        for (int i = 0; i < 3; i++) {
+            int a = board.get(i * 3);
+            int b = board.get(i * 3 + 1);
+            int c = board.get(i * 3 + 2);
+            int d = board.get(i);
+            int e = board.get(i + 3);
+            int f = board.get(i + 6);
+            // Check rows
+            if (a != 0 && a == b && a == c) {
+                winningLine.set(0, i*3); winningLine.set(1, i*3+1); winningLine.set(2, i*3+2);
+                return true;
+            }
+            // Check columns
+            if (d != 0 && d == e && d == f) {
+                winningLine.set(0, i); winningLine.set(1, i+3); winningLine.set(2, i+6);
+                return true;
+            }
+        }
+        int d00 = board.get(0);
+        int d02 = board.get(2);
+        int d11 = board.get(4);
+        int d20 = board.get(6);
+        int d22 = board.get(8);
+        // Check diagonals
+        if (d00 != 0 && d00 == d11 && d00 == d22) {
+            winningLine.set(0, 0); winningLine.set(1, 4); winningLine.set(2, 8);
+            return true;
+        } else if (d02 != 0 && d02 == d11 && d02 == d20) {
+            winningLine.set(0, 2); winningLine.set(1, 4); winningLine.set(2, 6);
+            return true;
+        }
+        // check if draw
+        for (int i = 0; i < 9; i++) {
+            int value = board.get(i);
+            if (value == 0) {
+                return false; // Still playing if there is an empty space
+            }
+        }
+        lastPlayer = -1; // It's a draw
+        return true;
     }
 
-
-    public ArrayList<Integer> getWinningLine() {
-        return null;
+    public ArrayList<Integer> getWinningLine () {
+        return (ArrayList<Integer>) winningLine;
     }
 
-
+    /**
+     * Gets the id of the winner, -1 if its a draw.
+     *
+     * @return int id of winner, or -1 if draw.
+     */
     public int getWinner() {
-        return 0;
+        gameWon = true;
+        return lastPlayer;
     }
 
-
+    /**
+     * Resets the game to a new game state.
+     */
     public void newGame() {
-
+        // sets all the indexes in the board arraylist to 0
+        for(int i=0; i<9; i++)
+        {
+            board.set(i, 0);
+        }
+        gameWon = false;
+        nextPlayer = 0;
     }
 }

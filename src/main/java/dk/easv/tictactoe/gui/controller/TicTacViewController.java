@@ -3,6 +3,8 @@ package dk.easv.tictactoe.gui.controller;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
+import dk.easv.tictactoe.bll.AIGameBoard;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,6 +54,13 @@ public class TicTacViewController implements Initializable {
                 else {setPlayer();}
                 Button btn = (Button) event.getSource();
                 btn.setText(player == 0 ? "X" : "O");
+                int aiPlacement = game.getAiPlacement();
+                if(aiPlacement != -1)
+                {
+                    Button btnAi = (Button) gridPane.getChildren().get(aiPlacement);
+                    btnAi.setText("O");
+                }
+
             }
         }
         catch (Exception e) {
