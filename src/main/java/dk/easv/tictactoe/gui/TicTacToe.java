@@ -3,6 +3,7 @@ package dk.easv.tictactoe.gui;
 
 // Java imports
 import dk.easv.tictactoe.gui.controller.IntroController;
+import dk.easv.tictactoe.gui.controller.TicTacViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,11 +41,13 @@ public class TicTacToe extends Application
 
 
 
-    public static void changeScene(String fxmlFile) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(TicTacToe.class.getResource(fxmlFile));
+    public static void changeScene() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(TicTacToe.class.getResource("/views/TicTacView.fxml"));
         Parent scene = fxmlLoader.load();
-        IntroController controller = fxmlLoader.getController();
+        TicTacViewController controller = fxmlLoader.getController();
         Stage stage = primaryStage;
+        stage.setResizable(false);
+        stage.centerOnScreen();
         stage.setTitle("Tic Tac Toe");
         stage.setScene(new Scene(scene));
         stage.show();
