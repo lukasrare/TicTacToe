@@ -84,8 +84,7 @@ public class TicTacViewController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        game = new GameBoard();
-        setPlayer();
+
     }
 
     /**
@@ -140,5 +139,10 @@ public class TicTacViewController implements Initializable {
             btn.setText("");
             btn.setFont(Font.font("System", FontWeight.NORMAL, 12));
         }
+    }
+
+    public void setGame(IGameBoard game) {
+        this.game = game;
+        setPlayer();
     }
 }

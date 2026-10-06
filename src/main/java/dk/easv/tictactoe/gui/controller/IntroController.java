@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import dk.easv.tictactoe.bll.AIGameBoard;
 import dk.easv.tictactoe.gui.TicTacToe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,9 +23,17 @@ import javafx.stage.Stage;
 
 public class IntroController {
 
-@FXML
-    public void fxmlLoad(ActionEvent btnSingle) throws IOException {
-        TicTacToe.changeScene();
+    @FXML
+    public void startSingleplayer(ActionEvent actionEvent) throws IOException {
+        AIGameBoard game = new AIGameBoard();
+        TicTacToe.changeScene(game);
+    }
+
+
+    @FXML
+    public void startMultiplayer(ActionEvent actionEvent) throws IOException {
+        GameBoard game = new GameBoard();
+        TicTacToe.changeScene(game);
     }
 
 
