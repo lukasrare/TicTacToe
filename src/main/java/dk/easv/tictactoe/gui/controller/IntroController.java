@@ -1,5 +1,6 @@
 package dk.easv.tictactoe.gui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,9 +22,9 @@ import javafx.stage.Stage;
 public class IntroController {
 
 @FXML
-    public void fxmlLoad(ActionEvent actionEvent) {
+    public void fxmlLoad(ActionEvent actionEvent) throws IOException {
 
-        TicTacToe.changeScene("TicTacView.fxml");
+        TicTacToe.changeScene();
     }
 }
 
