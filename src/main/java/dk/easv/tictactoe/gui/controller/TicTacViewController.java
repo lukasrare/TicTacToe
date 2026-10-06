@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import dk.easv.tictactoe.bll.AIGameBoard;
+import dk.easv.tictactoe.gui.TicTacToe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,7 +23,7 @@ import javafx.scene.text.FontWeight;
  *
  * @author EASV
  */
-public class TicTacViewController implements Initializable {
+public class TicTacViewController {
     @FXML
     private Label lblPlayer;
     @FXML
@@ -91,10 +92,6 @@ public class TicTacViewController implements Initializable {
      * The resources used to localize the root object, or {@code null} if
      * the root object was not localized.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
-    }
 
     /**
      * Set the next player
@@ -153,5 +150,10 @@ public class TicTacViewController implements Initializable {
     public void setGame(IGameBoard game) {
         this.game = game;
         setPlayer();
+    }
+
+    @FXML
+    private void returnToMenu(ActionEvent actionEvent) throws Exception {
+        TicTacToe.loadMenu();
     }
 }

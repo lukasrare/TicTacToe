@@ -40,6 +40,18 @@ public class TicTacToe extends Application
         primaryStage = stage;
     }
 
+    public static void loadMenu() throws Exception
+    {
+        FXMLLoader fxmlLoader = new FXMLLoader(TicTacToe.class.getResource("/views/Menu.fxml"));
+        Parent scene = fxmlLoader.load();
+        Stage stage = primaryStage;
+        stage.setScene(new Scene(scene));
+        stage.setResizable(false);
+        stage.setTitle("Tic Tac Toe");
+        stage.centerOnScreen();
+        stage.show();
+    }
+
     public static void changeScene(IGameBoard game) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(TicTacToe.class.getResource("/views/TicTacView.fxml"));
         Parent scene = fxmlLoader.load();

@@ -8,12 +8,12 @@
 
 <AnchorPane focusTraversable="true" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: beige;" styleClass="col" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.tictactoe.gui.controller.IntroController">
    <children>
-      <Button fx:id="btnSingle" layoutX="53.0" layoutY="172.0" mnemonicParsing="false" onAction="#fxmlLoad" text="Singleplayer" textFill="#686aff">
+      <Button fx:id="btnSingle" layoutX="53.0" layoutY="172.0" mnemonicParsing="false" onAction="#startSingleplayer" text="Singleplayer" textFill="#686aff">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="btnMulti" layoutX="53.0" layoutY="252.0" mnemonicParsing="false" onAction="#fxmlLoad" prefHeight="35.0" prefWidth="117.0" text="Multiplayer" textFill="RED">
+      <Button fx:id="btnMulti" layoutX="53.0" layoutY="252.0" mnemonicParsing="false" onAction="#startMultiplayer" prefHeight="35.0" prefWidth="117.0" text="Multiplayer" textFill="RED">
          <font>
             <Font size="18.0" />
          </font>
