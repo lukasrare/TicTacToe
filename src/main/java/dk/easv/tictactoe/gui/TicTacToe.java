@@ -1,6 +1,4 @@
-
 package dk.easv.tictactoe.gui;
-
 // Java imports
 import dk.easv.tictactoe.bll.IGameBoard;
 import dk.easv.tictactoe.gui.controller.IntroController;
@@ -10,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 /**

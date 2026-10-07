@@ -24,14 +24,14 @@ import javafx.stage.Stage;
 public class IntroController {
 
     @FXML
-    public void startSingleplayer(ActionEvent actionEvent) throws IOException {
+    private void startSingleplayer(ActionEvent actionEvent) throws IOException {
         AIGameBoard game = new AIGameBoard();
         TicTacToe.changeScene(game);
     }
 
 
     @FXML
-    public void startMultiplayer(ActionEvent actionEvent) throws IOException {
+    private void startMultiplayer(ActionEvent actionEvent) throws IOException {
         GameBoard game = new GameBoard();
         TicTacToe.changeScene(game);
     }

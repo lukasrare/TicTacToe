@@ -32,27 +32,17 @@ public class AIGameBoard implements IGameBoard{
      * this method will always return false.
      */
     public boolean play(int col, int row) {
-        boolean canContinue = false;
         int value = board.get(row * 3 + col);
-            if (value == 0 && !gameWon) {
-                board.set(row * 3 + col, nextPlayer + 1);
-                lastPlayer = nextPlayer;
-                nextPlayer = (nextPlayer == 0) ? 1 : 0;
-                System.out.println(board);
-
-                if(board.contains(0)) {
-                    canContinue = true;
-                }
+        if (value == 0 && !gameWon) {
+            setBoardIndex(row*3+col);
+            boolean canContinue = board.contains(0);
             if(canContinue && !isGameOver()) {
                 boolean tookTurn = false;
                 while (!tookTurn) {
                     int randomNum = (int) (Math.random() * 9);
                     int value2 = board.get(randomNum);
                     if (value2 == 0 && !gameWon) {
-                        board.set(randomNum, nextPlayer + 1);
-                        lastPlayer = nextPlayer;
-                        nextPlayer = (nextPlayer == 0) ? 1 : 0;
-                        System.out.println(board);
+                        setBoardIndex(randomNum);
                         aiPlacement = randomNum;
                         tookTurn = true;
                     }
@@ -60,7 +50,15 @@ public class AIGameBoard implements IGameBoard{
             }
             return true;
         }
-            return false;
+        return false;
+    }
+
+    private void setBoardIndex(int index)
+    {
+        board.set(index, nextPlayer + 1);
+        lastPlayer = nextPlayer;
+        nextPlayer = (nextPlayer == 0) ? 1 : 0;
+        System.out.println(board);
     }
 
     public int getAiPlacement() {
@@ -74,24 +72,47 @@ public class AIGameBoard implements IGameBoard{
      * @return true if the game is over, else it will return false.
      */
     public boolean isGameOver() {
-        for (int i = 0; i < 3; i++) {
-            int a = board.get(i * 3);
-            int b = board.get(i * 3 + 1);
-            int c = board.get(i * 3 + 2);
-            int d = board.get(i);
-            int e = board.get(i + 3);
-            int f = board.get(i + 6);
-            // Check rows
-            if (a != 0 && a == b && a == c) {
-                winningLine.set(0, i*3); winningLine.set(1, i*3+1); winningLine.set(2, i*3+2);
-                return true;
-            }
-            // Check columns
-            if (d != 0 && d == e && d == f) {
-                winningLine.set(0, i); winningLine.set(1, i+3); winningLine.set(2, i+6);
-                return true;
-            }
+        for (int i = 0; i < 3; i++)
+        {
+            if(checkRow(i)) return true;
+            if(checkColumn(i)) return true;
         }
+        if(checkDiagonals()) return true;
+        return isDraw();
+    }
+
+    private boolean checkRow(int r)
+    {
+        int a = board.get(r * 3);
+        int b = board.get(r * 3 + 1);
+        int c = board.get(r * 3 + 2);
+        // Check rows
+        if (a != 0 && a == b && a == c) {
+            winningLine.set(0, r * 3);
+            winningLine.set(1, r * 3 + 1);
+            winningLine.set(2, r * 3 + 2);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkColumn(int c)
+    {
+        int d = board.get(c);
+        int e = board.get(c + 3);
+        int f = board.get(c + 6);
+        // Check columns
+        if (d != 0 && d == e && d == f) {
+            winningLine.set(0, c);
+            winningLine.set(1, c + 3);
+            winningLine.set(2, c + 6);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean checkDiagonals()
+    {
         int d00 = board.get(0);
         int d02 = board.get(2);
         int d11 = board.get(4);
@@ -105,7 +126,11 @@ public class AIGameBoard implements IGameBoard{
             winningLine.set(0, 2); winningLine.set(1, 4); winningLine.set(2, 6);
             return true;
         }
-        // check if draw
+        return false;
+    }
+
+    private boolean isDraw()
+    {
         for (int i = 0; i < 9; i++) {
             int value = board.get(i);
             if (value == 0) {

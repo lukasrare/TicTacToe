@@ -24,8 +24,11 @@ public interface IGameBoard
      * @return true if the move is accepted, otherwise false. If gameOver ==
      * true this method will always return false.
      */
-    boolean play(int col, int row);
+    boolean play(int col, int row) throws InterruptedException;
 
+    private void setBoardIndex(int p) {
+
+    }
 
     int getAiPlacement();
 
@@ -36,6 +39,23 @@ public interface IGameBoard
      * @return true if the game is over, else it will return false.
      */
     boolean isGameOver();
+
+    private boolean checkRow() {
+        return false;
+    }
+
+    private boolean checkColumn() {
+        return false;
+    }
+
+    private boolean checkDiagonals() {
+        return false;
+    }
+
+    private boolean isDraw() {
+        return false;
+    }
+
 
     ArrayList<Integer> getWinningLine ();
 

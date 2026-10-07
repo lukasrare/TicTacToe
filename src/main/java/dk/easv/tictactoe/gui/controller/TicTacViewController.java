@@ -1,23 +1,19 @@
 package dk.easv.tictactoe.gui.controller;
 // Java imports
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-
-import dk.easv.tictactoe.bll.AIGameBoard;
 import dk.easv.tictactoe.gui.TicTacToe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 // Project imports
-import dk.easv.tictactoe.bll.GameBoard;
 import dk.easv.tictactoe.bll.IGameBoard;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+
+import javax.swing.*;
 
 /**
  *
@@ -46,26 +42,24 @@ public class TicTacViewController {
             int r = (row == null) ? 0 : row;
             int c = (col == null) ? 0 : col;
             int player = game.getNextPlayer();
-            if (game.play(c, r))
-            {
-                if (game.isGameOver()) {
-                    int winner = game.getWinner();
-                    displayWinner(winner);
-                }
+            if (game.play(c, r)) {
+                if (game.isGameOver()) {displayWinner();}
                 else {setPlayer();}
-                Button btn = (Button) event.getSource();
-                btn.setText(player == 0 ? "X" : "O");
-                int aiPlacement = game.getAiPlacement();
-                if(aiPlacement != -1)
-                {
-                    Button btnAi = (Button) gridPane.getChildren().get(aiPlacement);
-                    btnAi.setText("O");
-                }
-
+                setXorO(player, event);
             }
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private void setXorO(int player, ActionEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setText(player == 0 ? "X" : "O");
+        int aiPlacement = game.getAiPlacement();
+        if(aiPlacement != -1) {
+            Button btnAi = (Button) gridPane.getChildren().get(aiPlacement);
+            btnAi.setText("O");
         }
     }
 
@@ -104,12 +98,11 @@ public class TicTacViewController {
 
     /**
      * Finds a winner or a draw and displays a message based
-     * @param winner
      */
-    private void displayWinner(int winner) {
+    private void displayWinner() {
+        int winner = game.getWinner();
         String message = "";
-        switch (winner)
-        {
+        switch (winner) {
             case -1:
                 message = "It's a draw :-(";
                 break;
@@ -139,8 +132,7 @@ public class TicTacViewController {
      * Clears the game board in the GUI and resets the font for all the buttons.
      */
     private void clearBoard() {
-        for(Node n : gridPane.getChildren())
-        {
+        for(Node n : gridPane.getChildren()) {
             Button btn = (Button) n;
             btn.setText("");
             btn.setFont(Font.font("System", FontWeight.NORMAL, 12));
