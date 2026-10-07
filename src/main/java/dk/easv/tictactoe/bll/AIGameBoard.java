@@ -16,6 +16,7 @@ public class AIGameBoard implements IGameBoard{
      *
      * @return int Id of the next player.
      */
+    @Override
     public int getNextPlayer()
     {
         return nextPlayer;
@@ -31,6 +32,7 @@ public class AIGameBoard implements IGameBoard{
      * @return true if the move is accepted, otherwise false. If gameOver == true
      * this method will always return false.
      */
+    @Override
     public boolean play(int col, int row) {
         int value = board.get(row * 3 + col);
         if (value == 0 && !gameWon) {
@@ -61,6 +63,7 @@ public class AIGameBoard implements IGameBoard{
         System.out.println(board);
     }
 
+    @Override
     public int getAiPlacement() {
         return aiPlacement;
     }
@@ -71,6 +74,7 @@ public class AIGameBoard implements IGameBoard{
      *
      * @return true if the game is over, else it will return false.
      */
+    @Override
     public boolean isGameOver() {
         for (int i = 0; i < 3; i++)
         {
@@ -141,6 +145,7 @@ public class AIGameBoard implements IGameBoard{
         return true;
     }
 
+    @Override
     public ArrayList<Integer> getWinningLine () {
         return (ArrayList<Integer>) winningLine;
     }
@@ -150,6 +155,7 @@ public class AIGameBoard implements IGameBoard{
      *
      * @return int id of winner, or -1 if draw.
      */
+    @Override
     public int getWinner() {
         gameWon = true;
         return lastPlayer;
@@ -158,6 +164,7 @@ public class AIGameBoard implements IGameBoard{
     /**
      * Resets the game to a new game state.
      */
+    @Override
     public void newGame() {
         // sets all the indexes in the board arraylist to 0
         for(int i=0; i<9; i++)
