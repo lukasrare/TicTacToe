@@ -55,12 +55,12 @@
    <bottom>
       <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="390.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#returnToMenu" text="Back to Menu">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#returnToMenu" text="Back to Menu">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnNewGame" mnemonicParsing="false" onAction="#handleNewGame" text="New Game">
+            <Button focusTraversable="false" mnemonicParsing="false" onAction="#handleNewGame" text="New Game">
                <HBox.margin>
                   <Insets left="5.0" right="5.0" top="5.0" />
                </HBox.margin>
