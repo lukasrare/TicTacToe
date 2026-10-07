@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import dk.easv.tictactoe.bll.AIGameBoard;
+import dk.easv.tictactoe.bll.MiniMaxAiGameBoard;
 import dk.easv.tictactoe.gui.TicTacToe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,20 +23,22 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class IntroController {
-
     @FXML
-    private void startSingleplayer(ActionEvent actionEvent) throws IOException {
+    private void startDumbSingleplayer(ActionEvent actionEvent) throws IOException {
         AIGameBoard game = new AIGameBoard();
         TicTacToe.changeScene(game);
     }
 
+    @FXML
+    private void startSmartSingleplayer(ActionEvent actionEvent) throws IOException {
+        MiniMaxAiGameBoard game = new MiniMaxAiGameBoard();
+        TicTacToe.changeScene(game);
+    }
 
     @FXML
     private void startMultiplayer(ActionEvent actionEvent) throws IOException {
         GameBoard game = new GameBoard();
         TicTacToe.changeScene(game);
     }
-
-
 }
 

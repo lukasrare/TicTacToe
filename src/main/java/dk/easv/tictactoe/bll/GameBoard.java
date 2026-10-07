@@ -45,8 +45,7 @@ public class GameBoard implements IGameBoard {
         return false;
     }
 
-    private void setBoardIndex(int index)
-    {
+    private void setBoardIndex(int index) {
         board.set(index, nextPlayer + 1);
         lastPlayer = nextPlayer;
         nextPlayer = (nextPlayer == 0) ? 1 : 0;
@@ -66,72 +65,29 @@ public class GameBoard implements IGameBoard {
      */
     @Override
     public boolean isGameOver() {
-        for (int i = 0; i < 3; i++)
-        {
-            if(checkRow(i)) return true;
-            if(checkColumn(i)) return true;
-        }
-        if(checkDiagonals()) return true;
-        return isDraw();
+        return checkWinner();
     }
 
-    private boolean checkRow(int r)
-    {
-        int a = board.get(r * 3);
-        int b = board.get(r * 3 + 1);
-        int c = board.get(r * 3 + 2);
-        // Check rows
-        if (a != 0 && a == b && a == c) {
-            winningLine.set(0, r * 3);
-            winningLine.set(1, r * 3 + 1);
-            winningLine.set(2, r * 3 + 2);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkColumn(int c)
-    {
-        int d = board.get(c);
-        int e = board.get(c + 3);
-        int f = board.get(c + 6);
-        // Check columns
-        if (d != 0 && d == e && d == f) {
-            winningLine.set(0, c);
-            winningLine.set(1, c + 3);
-            winningLine.set(2, c + 6);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean checkDiagonals()
-    {
-        int d00 = board.get(0);
-        int d02 = board.get(2);
-        int d11 = board.get(4);
-        int d20 = board.get(6);
-        int d22 = board.get(8);
-        // Check diagonals
-        if (d00 != 0 && d00 == d11 && d00 == d22) {
-            winningLine.set(0, 0); winningLine.set(1, 4); winningLine.set(2, 8);
-            return true;
-        } else if (d02 != 0 && d02 == d11 && d02 == d20) {
-            winningLine.set(0, 2); winningLine.set(1, 4); winningLine.set(2, 6);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean isDraw()
-    {
-        for (int i = 0; i < 9; i++) {
-            int value = board.get(i);
-            if (value == 0) {
-                return false; // Still playing if there is an empty space
+    private boolean checkWinner() {
+        int[][] wins = {
+                {0,1,2},{3,4,5},{6,7,8}, // rows
+                {0,3,6},{1,4,7},{2,5,8}, // columns
+                {0,4,8},{2,4,6} // diagonals
+        };
+        for (int[] w : wins) {
+            int a = board.get(w[0]);
+            int b = board.get(w[1]);
+            int c = board.get(w[2]);
+            if (a != 0 && a == b && b == c) {
+                winningLine.set(0, w[0]); winningLine.set(1, w[1]); winningLine.set(2, w[2]);
+                return true;
             }
         }
-        lastPlayer = -1; // It's a draw
+        // Check draw
+        for (int i = 0; i < 9; i++)
+            if (board.get(i) == 0) return false;
+        winningLine.set(0, -1); winningLine.set(1, -1); winningLine.set(2, -1);
+        lastPlayer = -1;
         return true;
     }
 
@@ -157,8 +113,7 @@ public class GameBoard implements IGameBoard {
     @Override
     public void newGame() {
         // sets all the indexes in the board arraylist to 0
-        for(int i=0; i<9; i++)
-        {
+        for(int i=0; i<9; i++) {
             board.set(i, 0);
         }
         gameWon = false;
