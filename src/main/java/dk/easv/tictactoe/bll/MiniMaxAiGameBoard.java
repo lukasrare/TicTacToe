@@ -84,7 +84,6 @@ public class MiniMaxAiGameBoard implements IGameBoard {
             if(priority[j] == selectedMove) selectedMoveRank = j;
             if(priority[j] == currentMove) currentMoveRank = j;
         }
-
         return selectedMoveRank < currentMoveRank;
     }
 
@@ -92,18 +91,18 @@ public class MiniMaxAiGameBoard implements IGameBoard {
         Integer result = checkWinner();
         if (result != null) return result;
         int bestScore = (currentPlayer == AI)
-                ? Integer.MIN_VALUE // Ai starts we want the highest score.
-                : Integer.MAX_VALUE; // Human starts we want the lowest score.
+                ? Integer.MIN_VALUE // Ai wants the highest score.
+                : Integer.MAX_VALUE; // Human wants the lowest score.
         /*
-          The loop creates up to 9 child minimax methods, with each of those children
-          creating more children, alternating between AI and human moves until one reaches a
-          win, loss or draw. Which bubbles back up to the first parent.
+          The loop creates up to 9 child minimax methods, with each of those children creating more children,
+          alternating between AI and human moves until they reach a win, loss or draw. Which bubbles back up to the
+           first parent. There can be multiple win, loss or draws, but they get sorted from the loop.
          */
-        for (int i = 0; i < 9; i++) { // updates the bestScore from the score the child method gives
+        for (int i = 0; i < 9; i++) { // updates the bestScore from the score the child method gives,
+            // the child method also does this with other child methods they have created.
             if (board.get(i) == 0) {
                 board.set(i, currentPlayer);
-
-                int score = minimax((currentPlayer == AI) ? HUMAN : AI); // child minimax methods.
+                int score = minimax((currentPlayer == AI) ? HUMAN : AI); // child method
                 board.set(i, 0);
                 if (currentPlayer == AI)
                     bestScore = Math.max(bestScore, score); // when it's AI's move we want the best move for the AI
